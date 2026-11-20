@@ -1,0 +1,24 @@
+//3041. Maximize Consecutive Elements in an Array After Modification
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int maxSelectedElements(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        
+        int max_val = nums.back() + 2;
+        vector<int> dp(max_val, 0);
+        int ans = 1;
+        
+        for (int x : nums) {
+            dp[x + 1] = dp[x] + 1;
+            dp[x] = dp[x - 1] + 1;
+            ans = max({ans, dp[x], dp[x + 1]});
+        }
+        
+        return ans;
+    }
+};
